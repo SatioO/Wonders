@@ -1,4 +1,4 @@
-import 'package:crisil/onBoardingCard.dart';
+import 'package:crisil/models/post.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: '',
+      title: 'Todo App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -28,40 +28,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<Posts> posts = [
+    Posts(id: 1, title: "First post", body: "First posts body"),
+    Posts(id: 2, title: "Second post", body: "Second posts body"),
+    Posts(id: 3, title: "Third post", body: "Third posts body")
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: Theme.of(context).primaryColor,
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: SafeArea(
-          child: Stack(
-            children: <Widget>[
-              Positioned(top: 52, left: 0, right: 0, child: OnBoardingCard()),
-              Positioned(
-                  top: 52 + (MediaQuery.of(context).size.height * 0.65) - 25,
-                  left: (MediaQuery.of(context).size.width / 2) - 60,
-                  child: Ink(
-                    height: 50,
-                    width: 120,
-                    child: InkWell(
-                        onTap: () {
-                          print("tapped");
-                        },
-                        child: Container(
-                          height: 50,
-                          width: 120,
-                          decoration: BoxDecoration(
-                              color: Colors.amberAccent.shade400,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(16.0))),
-                        )),
-                  )),
-            ],
-          ),
-        ),
-      ),
-    );
+        body: SafeArea(
+            child: ListView.builder(
+                itemCount: posts.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Text(posts[index].title);
+                })));
   }
 }
