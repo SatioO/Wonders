@@ -1,14 +1,13 @@
-import 'package:crisil/posts/models/post_item.dart';
-import 'package:crisil/posts/providers/posts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import './providers/posts.dart';
 
-class Posts extends StatelessWidget {
+class PostsScreen extends StatelessWidget {
   static const String routeName = '/posts';
 
   @override
   Widget build(BuildContext context) {
-    final posts = Provider.of<PostsProvider>(context);
+    final posts = Provider.of<Posts>(context);
     return Scaffold(
         body: ListView(
             children: posts.posts

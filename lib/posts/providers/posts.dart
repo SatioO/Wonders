@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/post_item.dart';
 
-class PostsProvider with ChangeNotifier {
+class Posts with ChangeNotifier {
   List<PostItem> _posts = [
     PostItem(id: 1, title: "First Post"),
     PostItem(id: 2, title: "Second Post")

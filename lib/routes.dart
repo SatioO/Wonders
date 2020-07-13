@@ -6,5 +6,5 @@ import 'posts/posts.dart';
 Map<String, Widget Function(BuildContext)> routes = {
   '/': (ctx) => Home(),
   Login.routeName: (ctx) => Login(),
-  Posts.routeName: (ctx) => Posts()
+  PostsScreen.routeName: (ctx) => PostsScreen()
 };
