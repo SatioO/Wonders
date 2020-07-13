@@ -1,8 +1,10 @@
-import 'package:crisil/home/home.dart';
 import 'package:flutter/material.dart';
 import 'login/login.dart';
+import 'home/home.dart';
+import 'posts/posts.dart';
 
 Map<String, Widget Function(BuildContext)> routes = {
   '/': (ctx) => Home(),
-  Login.routeName: (ctx) => Login()
+  Login.routeName: (ctx) => Login(),
+  Posts.routeName: (ctx) => Posts()
 };
