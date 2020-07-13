@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'routes.dart';
 import 'posts/posts.dart';
-import 'posts/providers/posts.dart';
+import 'posts/providers/posts_provider.dart';
 
 void main() {
   runApp(MyApp());
