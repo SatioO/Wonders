@@ -1,15 +1,12 @@
 import 'dart:convert';
-
-import 'package:crisil/posts/models/post_item.dart';
 import './base.dart';
 import '../services/posts.dart';
+import '../models/post_item.dart';
 
 class PostsRepository extends BaseRepository {
   List<PostItem> posts = [];
 
-  PostsRepository() {
-    print("got here");
-  }
+  PostsRepository();
 
   @override
   Future<void> loadData() async {

@@ -1,8 +1,9 @@
-import 'package:crisil/posts/repositories/posts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'routes.dart';
-import 'posts/posts.dart';
+import 'pages/posts.dart';
+import 'providers/theme.dart';
+import 'repositories/posts.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,15 +14,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
+          ChangeNotifierProvider(create: (context) => ThemeProvider()),
           ChangeNotifierProvider(create: (context) => PostsRepository())
         ],
-        child: MaterialApp(
-            title: 'Todo App',
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-                primarySwatch: Colors.blue,
-                visualDensity: VisualDensity.adaptivePlatformDensity),
-            initialRoute: PostsScreen.routeName,
-            routes: routes));
+        child: Consumer<ThemeProvider>(builder: (context, value, child) {
+          return MaterialApp(
+              title: 'Wonders',
+              debugShowCheckedModeBanner: false,
+              theme: value.requestTheme(Themes.light),
+              darkTheme: value.requestTheme(Themes.dark),
+              initialRoute: PostsScreen.routeName,
+              routes: routes);
+        }));
   }
 }
