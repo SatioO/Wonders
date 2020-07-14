@@ -1,28 +1,29 @@
-import 'package:crisil/posts/services/posts_service.dart';
+import 'package:crisil/posts/repositories/posts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'providers/posts_provider.dart';
 
-class PostsScreen extends StatelessWidget {
+class PostsScreen extends StatefulWidget {
   static const String routeName = '/posts';
 
   @override
+  _PostsScreenState createState() => _PostsScreenState();
+}
+
+class _PostsScreenState extends State<PostsScreen> {
+  @override
   Widget build(BuildContext context) {
-    final posts = Provider.of<Posts>(context);
+    final posts = Provider.of<PostsRepository>(context);
 
     return Scaffold(
-        body: FutureBuilder(
-            future: PostsService().getPosts(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return ListView.builder(
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return ListTile(title: Text(snapshot.data[index].title));
-                    });
-              } else {
-                return Text("");
-              }
-            }));
+        body: Consumer<PostsRepository>(builder: (context, model, child) {
+      return Scaffold(
+          body: model.isLoading
+              ? Center(child: Text("Loading..."))
+              : ListView.builder(
+                  itemCount: model.posts.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return ListTile(title: Text(model.posts[index].title));
+                  }));
+    }));
   }
 }
