@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'routes.dart';
-import 'pages/posts.dart';
-import 'providers/theme.dart';
-import 'repositories/posts.dart';
+import 'providers/index.dart';
+import 'repositories/index.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,7 +22,6 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               theme: value.requestTheme(Themes.light),
               darkTheme: value.requestTheme(Themes.dark),
-              initialRoute: PostsScreen.routeName,
               routes: routes);
         }));
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../repositories/posts.dart';
+import '../../repositories/index.dart';
 
 class PostsScreen extends StatefulWidget {
   static const String routeName = '/posts';
@@ -25,7 +25,8 @@ class _PostsScreenState extends State<PostsScreen> {
                         return ListTile(
                             title: Text(model.posts[index].title,
                                 style: TextStyle(
-                                    color: Theme.of(context).accentColor)));
+                                    color: Theme.of(context).accentColor)),
+                            subtitle: Text(model.posts[index].body));
                       })));
     }));
   }

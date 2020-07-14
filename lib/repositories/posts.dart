@@ -1,7 +1,7 @@
 import 'dart:convert';
 import './base.dart';
-import '../services/posts.dart';
-import '../models/post_item.dart';
+import '../services/index.dart';
+import '../models/index.dart';
 
 class PostsRepository extends BaseRepository {
   List<PostItem> posts = [];
