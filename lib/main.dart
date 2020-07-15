@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               theme: value.requestTheme(Themes.light),
               darkTheme: value.requestTheme(Themes.dark),
-              themeMode: ThemeMode.dark,
+              themeMode: ThemeMode.light,
               routes: routes);
         }));
   }

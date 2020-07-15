@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/button.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -17,8 +18,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     _controller =
         AnimationController(vsync: this, duration: Duration(milliseconds: 500));
 
-    _animation = Tween<double>(begin: 1.0, end: 2.5).animate(
-        CurvedAnimation(curve: Curves.linearToEaseOut, parent: _controller));
+    _animation = Tween<double>(begin: 1.0, end: 10.0)
+        .animate(CurvedAnimation(curve: Curves.ease, parent: _controller));
   }
 
   @override
@@ -41,16 +42,38 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-          child: Center(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-            ScaleTransition(
-                scale: _animation,
-                child: Container(height: 100, width: 100, color: Colors.amber)),
-            RaisedButton(onPressed: play)
-          ]))),
-    );
+        backgroundColor: Colors.grey.shade300,
+        body: SafeArea(
+            child: Center(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+              ScaleTransition(
+                  scale: _animation,
+                  child: Padding(
+                      padding: const EdgeInsets.all(18.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          SoftButton(
+                              size: 68,
+                              icon: Icon(Icons.home,
+                                  size: 28, color: Colors.black)),
+                          SoftButton(
+                              size: 68,
+                              icon: Icon(Icons.settings,
+                                  size: 28, color: Colors.black)),
+                          SoftButton(
+                              size: 68,
+                              icon: Icon(Icons.favorite,
+                                  size: 28, color: Colors.pink)),
+                          SoftButton(
+                              size: 68,
+                              icon: Icon(Icons.message,
+                                  size: 28, color: Colors.black))
+                        ],
+                      )))
+              // RaisedButton(onPressed: play)
+            ]))));
   }
 }
