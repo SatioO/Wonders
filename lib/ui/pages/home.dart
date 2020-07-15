@@ -1,3 +1,4 @@
+import 'package:crisil/ui/widgets/button_pressed.dart';
 import 'package:flutter/material.dart';
 import '../widgets/button.dart';
 
@@ -6,36 +7,33 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<double> _animation;
-  bool _isPlayed = false;
+class _HomeScreenState extends State<HomeScreen> {
+  bool _isHomePressed = false;
+  bool _isSettingsPressed = false;
+  bool _isFavoritePressed = false;
+  bool _isMessagePressed = false;
 
-  @override
-  void initState() {
-    super.initState();
-
-    _controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
-
-    _animation = Tween<double>(begin: 1.0, end: 10.0)
-        .animate(CurvedAnimation(curve: Curves.ease, parent: _controller));
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
-  }
-
-  void play() {
-    if (!_isPlayed)
-      _controller.forward();
-    else
-      _controller.reverse();
-
+  void onHomeTap() {
     setState(() {
-      _isPlayed = !_isPlayed;
+      _isHomePressed = !_isHomePressed;
+    });
+  }
+
+  void onSettingsTap() {
+    setState(() {
+      _isSettingsPressed = !_isSettingsPressed;
+    });
+  }
+
+  void onFavoriteTap() {
+    setState(() {
+      _isFavoritePressed = !_isFavoritePressed;
+    });
+  }
+
+  void onMessageTap() {
+    setState(() {
+      _isMessagePressed = !_isMessagePressed;
     });
   }
 
@@ -48,31 +46,58 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
-              ScaleTransition(
-                  scale: _animation,
-                  child: Padding(
-                      padding: const EdgeInsets.all(18.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          SoftButton(
-                              size: 68,
-                              icon: Icon(Icons.home,
-                                  size: 28, color: Colors.black)),
-                          SoftButton(
-                              size: 68,
-                              icon: Icon(Icons.settings,
-                                  size: 28, color: Colors.black)),
-                          SoftButton(
-                              size: 68,
-                              icon: Icon(Icons.favorite,
-                                  size: 28, color: Colors.pink)),
-                          SoftButton(
-                              size: 68,
-                              icon: Icon(Icons.message,
-                                  size: 28, color: Colors.black))
-                        ],
-                      )))
+              Padding(
+                  padding: const EdgeInsets.all(18.0),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        GestureDetector(
+                            onTap: onHomeTap,
+                            child: _isHomePressed
+                                ? SoftButtonPressed(
+                                    size: 68,
+                                    icon: Icon(Icons.home,
+                                        size: 30, color: Colors.grey.shade700))
+                                : SoftButton(
+                                    size: 68,
+                                    icon: Icon(Icons.home,
+                                        size: 30,
+                                        color: Colors.grey.shade700))),
+                        GestureDetector(
+                            onTap: onSettingsTap,
+                            child: _isSettingsPressed
+                                ? SoftButtonPressed(
+                                    size: 68,
+                                    icon: Icon(Icons.settings,
+                                        size: 30, color: Colors.grey.shade700))
+                                : SoftButton(
+                                    size: 68,
+                                    icon: Icon(Icons.settings,
+                                        size: 30,
+                                        color: Colors.grey.shade700))),
+                        GestureDetector(
+                            onTap: onFavoriteTap,
+                            child: _isFavoritePressed
+                                ? SoftButtonPressed(
+                                    size: 68,
+                                    icon: Icon(Icons.favorite,
+                                        size: 30, color: Colors.pink))
+                                : SoftButton(
+                                    size: 68,
+                                    icon: Icon(Icons.favorite,
+                                        size: 30, color: Colors.grey.shade700))),
+                        GestureDetector(
+                            onTap: onMessageTap,
+                            child: _isMessagePressed
+                                ? SoftButtonPressed(
+                                    size: 68,
+                                    icon: Icon(Icons.message,
+                                        size: 30, color: Colors.grey.shade700))
+                                : SoftButton(
+                                    size: 68,
+                                    icon: Icon(Icons.message,
+                                        size: 30, color: Colors.grey.shade700)))
+                      ]))
               // RaisedButton(onPressed: play)
             ]))));
   }
