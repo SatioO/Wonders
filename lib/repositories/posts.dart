@@ -6,8 +6,6 @@ import '../models/index.dart';
 class PostsRepository extends BaseRepository {
   List<PostItem> posts = [];
 
-  PostsRepository();
-
   @override
   Future<void> loadData() async {
     startLoading();
