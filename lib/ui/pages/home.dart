@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 : SoftButton(
                                     size: 68,
                                     icon: Icon(Icons.favorite,
-                                        size: 30, color: Colors.grey.shade700))),
+                                        size: 30, color: Colors.pink))),
                         GestureDetector(
                             onTap: onMessageTap,
                             child: _isMessagePressed
