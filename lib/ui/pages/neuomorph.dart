@@ -1,13 +1,12 @@
-import 'package:crisil/ui/widgets/button_pressed.dart';
 import 'package:flutter/material.dart';
-import '../widgets/button.dart';
+import '../widgets/index.dart';
 
-class HomeScreen extends StatefulWidget {
+class Neuomorph extends StatefulWidget {
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _NeuomorphState createState() => _NeuomorphState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _NeuomorphState extends State<Neuomorph> {
   bool _isHomePressed = false;
   bool _isSettingsPressed = false;
   bool _isFavoritePressed = false;
@@ -46,8 +45,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
+              RaisedButton(
+                color: Colors.grey.shade300,
+                onPressed: () {
+                  Navigator.pushNamed(context, "/posts");
+                },
+                child: Text("Press"),
+              ),
               Padding(
-                  padding: const EdgeInsets.all(18.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[

@@ -1,2 +1,3 @@
 export 'posts.dart';
-export 'home.dart';
+export 'neuomorph.dart';
+export './animations.dart';
