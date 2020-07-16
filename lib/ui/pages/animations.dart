@@ -48,6 +48,18 @@ class _AnimationsState extends State<Animations> with TickerProviderStateMixin {
       parent: animationController,
       curve: Interval(0.000, 0.500, curve: Curves.easeInExpo),
     );
+
+    animationController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        Navigator.pushNamed(context, "/neumorph");
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    animationController.dispose();
   }
 
   @override

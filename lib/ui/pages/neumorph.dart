@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import '../widgets/index.dart';
 
-class Neuomorph extends StatefulWidget {
+class Neumorph extends StatefulWidget {
   @override
-  _NeuomorphState createState() => _NeuomorphState();
+  _NeumorphState createState() => _NeumorphState();
 }
 
-class _NeuomorphState extends State<Neuomorph> {
+class _NeumorphState extends State<Neumorph> {
   bool _isHomePressed = false;
   bool _isSettingsPressed = false;
   bool _isFavoritePressed = false;
