@@ -5,10 +5,8 @@ class Cards extends StatefulWidget {
   _CardsState createState() => _CardsState();
 }
 
-class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
+class _CardsState extends State<Cards> {
   ScrollController _scrollController;
-  Animation _animation;
   double _scrollIndex = 0;
   double _cardWidth = 375;
 
@@ -16,14 +14,11 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _scrollController = ScrollController();
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(seconds: 1));
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
-    _animationController.dispose();
     super.dispose();
   }
 
@@ -33,7 +28,7 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
         _scrollIndex += 1;
       });
       _scrollController.animateTo(_cardWidth * _scrollIndex,
-          duration: Duration(milliseconds: 450), curve: Curves.easeInCubic);
+          duration: Duration(milliseconds: 1000), curve: Curves.fastOutSlowIn);
     }
 
     if (details.primaryVelocity > 0 && _scrollIndex > 0) {
@@ -41,7 +36,7 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
         _scrollIndex -= 1;
       });
       _scrollController.animateTo(_cardWidth * _scrollIndex,
-          duration: Duration(milliseconds: 450), curve: Curves.easeInCubic);
+          duration: Duration(milliseconds: 1000), curve: Curves.fastOutSlowIn);
     }
   }
 
