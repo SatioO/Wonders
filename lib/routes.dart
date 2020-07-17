@@ -1,8 +1,10 @@
+
 import 'package:flutter/material.dart';
 import 'ui/pages/index.dart';
 
 Map<String, Widget Function(BuildContext)> routes = {
-  '/': (ctx) => Animations(),
+  '/': (ctx) => Cards(),
   '/neumorph': (ctx) => Neumorph(),
-  '/posts': (ctx) => PostsScreen()
+  '/posts': (ctx) => PostsScreen(),
+  '/animations': (ctx) => Animations(),
 };

@@ -4,11 +4,13 @@ class AnimatedCircle extends AnimatedWidget {
   final Tween<double> tween;
   final Animation<double> animation;
   final double radius;
+  final int flip;
 
   AnimatedCircle(
       {Key key,
       @required this.animation,
       @required this.tween,
+      @required this.flip,
       @required this.radius})
       : super(key: key, listenable: animation);
 
@@ -16,13 +18,15 @@ class AnimatedCircle extends AnimatedWidget {
   Widget build(BuildContext context) {
     return Transform(
         alignment: FractionalOffset.centerLeft,
-        transform: Matrix4.identity()..scale(tween.evaluate(animation)),
+        transform: Matrix4.identity()
+          ..scale(tween.evaluate(animation) * flip, tween.evaluate(animation)),
         child: Container(
           height: radius,
           width: radius,
           decoration: BoxDecoration(
               color: Colors.amber,
-              borderRadius: BorderRadius.all(Radius.circular(radius / 2))),
+              borderRadius: BorderRadius.circular(
+                  radius / 2.0 - tween.evaluate(animation) / (radius / 2.0))),
         ));
   }
 }
@@ -36,7 +40,7 @@ class _AnimationsState extends State<Animations> with TickerProviderStateMixin {
   final double radius = 88.0;
   AnimationController animationController;
   Animation startAnimation;
-  Animation scale;
+  Animation endAnimation;
 
   @override
   void initState() {
@@ -47,6 +51,11 @@ class _AnimationsState extends State<Animations> with TickerProviderStateMixin {
     startAnimation = CurvedAnimation(
       parent: animationController,
       curve: Interval(0.000, 0.500, curve: Curves.easeInExpo),
+    );
+
+    endAnimation = CurvedAnimation(
+      parent: animationController,
+      curve: Interval(0.500, 1.000, curve: Curves.easeOutExpo),
     );
 
     animationController.addStatusListener((status) {
@@ -87,7 +96,14 @@ class _AnimationsState extends State<Animations> with TickerProviderStateMixin {
                 AnimatedCircle(
                   animation: startAnimation,
                   radius: radius,
+                  flip: 1,
                   tween: Tween(begin: 1.0, end: radius),
+                ),
+                AnimatedCircle(
+                  animation: endAnimation,
+                  radius: radius,
+                  flip: -1,
+                  tween: Tween(begin: radius, end: 1.0),
                 )
               ],
             ),
