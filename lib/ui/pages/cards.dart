@@ -9,6 +9,7 @@ class _CardsState extends State<Cards> {
   ScrollController _controller;
   double _scrollOffset = 0.0;
   int _currentIndex = 0;
+  bool _didAnimStart = false;
 
   @override
   void initState() {
@@ -16,7 +17,10 @@ class _CardsState extends State<Cards> {
     _controller = ScrollController();
 
     _controller.addListener(() {
-      if (_controller.offset > _scrollOffset + 5 && _currentIndex < 3) {
+      print(_didAnimStart);
+      if (_controller.offset > _scrollOffset + 5 &&
+          _currentIndex < 3 &&
+          _didAnimStart) {
         setState(() {
           _scrollOffset = _scrollOffset + MediaQuery.of(context).size.width;
           _currentIndex = _currentIndex + 1;
@@ -24,6 +28,20 @@ class _CardsState extends State<Cards> {
         _controller.animateTo(_scrollOffset,
             duration: Duration(seconds: 1),
             curve: Curves.fastLinearToSlowEaseIn);
+        setState(() {
+          _didAnimStart = false;
+        });
+      } else if (_controller.offset < _scrollOffset - 5 &&
+          _currentIndex > 0 &&
+          _didAnimStart) {
+        _controller.animateTo(_scrollOffset - MediaQuery.of(context).size.width,
+            duration: Duration(seconds: 1),
+            curve: Curves.fastLinearToSlowEaseIn);
+        setState(() {
+          _scrollOffset = _scrollOffset - MediaQuery.of(context).size.width;
+          _currentIndex = _currentIndex - 1;
+          _didAnimStart = false;
+        });
       }
     });
   }
@@ -41,11 +59,13 @@ class _CardsState extends State<Cards> {
             child: NotificationListener<ScrollNotification>(
       onNotification: (notification) {
         if (notification is ScrollStartNotification) {
-          // setState(() {
-          //   _scrollOffset = _controller.offset;
-          // });
+          setState(() {
+            _didAnimStart = true;
+          });
         } else if (notification is ScrollEndNotification) {
-          print(_scrollOffset);
+          setState(() {
+            _didAnimStart = false;
+          });
         }
 
         return true;
