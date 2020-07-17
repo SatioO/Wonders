@@ -7,9 +7,10 @@ class Cards extends StatefulWidget {
 
 class _CardsState extends State<Cards> {
   ScrollController _controller;
-  double _scrollOffset = 0.0;
+  double _startOffset = 0.0;
+  double _endOffset = 0.0;
   int _currentIndex = 0;
-  bool _didAnimStart = false;
+  bool _shouldAllowScrolling = false;
 
   @override
   void initState() {
@@ -17,31 +18,16 @@ class _CardsState extends State<Cards> {
     _controller = ScrollController();
 
     _controller.addListener(() {
-      print(_didAnimStart);
-      if (_controller.offset > _scrollOffset + 5 &&
+      if (_controller.offset > _endOffset &&
           _currentIndex < 3 &&
-          _didAnimStart) {
-        setState(() {
-          _scrollOffset = _scrollOffset + MediaQuery.of(context).size.width;
-          _currentIndex = _currentIndex + 1;
-        });
-        _controller.animateTo(_scrollOffset,
-            duration: Duration(seconds: 1),
-            curve: Curves.fastLinearToSlowEaseIn);
-        setState(() {
-          _didAnimStart = false;
-        });
-      } else if (_controller.offset < _scrollOffset - 5 &&
+          _shouldAllowScrolling) {
+        _controller.animateTo(_endOffset + MediaQuery.of(context).size.width,
+            duration: Duration(seconds: 1), curve: Curves.ease);
+      } else if (_controller.offset < _endOffset &&
           _currentIndex > 0 &&
-          _didAnimStart) {
-        _controller.animateTo(_scrollOffset - MediaQuery.of(context).size.width,
-            duration: Duration(seconds: 1),
-            curve: Curves.fastLinearToSlowEaseIn);
-        setState(() {
-          _scrollOffset = _scrollOffset - MediaQuery.of(context).size.width;
-          _currentIndex = _currentIndex - 1;
-          _didAnimStart = false;
-        });
+          _shouldAllowScrolling) {
+        _controller.animateTo(_endOffset - MediaQuery.of(context).size.width,
+            duration: Duration(seconds: 1), curve: Curves.ease);
       }
     });
   }
@@ -60,12 +46,30 @@ class _CardsState extends State<Cards> {
       onNotification: (notification) {
         if (notification is ScrollStartNotification) {
           setState(() {
-            _didAnimStart = true;
+            _startOffset = _controller.offset;
+            _shouldAllowScrolling = true;
           });
+        } else if (notification is ScrollUpdateNotification) {
+          if (_shouldAllowScrolling) {
+            setState(() {
+              _shouldAllowScrolling = false;
+            });
+          }
         } else if (notification is ScrollEndNotification) {
-          setState(() {
-            _didAnimStart = false;
-          });
+          if (_controller.offset > _startOffset && _currentIndex < 3) {
+            setState(() {
+              _startOffset = _endOffset + MediaQuery.of(context).size.width;
+              _endOffset = _endOffset + MediaQuery.of(context).size.width;
+              _currentIndex = _currentIndex + 1;
+            });
+          } else if (_controller.offset < _startOffset && _currentIndex > 0) {
+            setState(() {
+              _startOffset = _endOffset - MediaQuery.of(context).size.width;
+              _endOffset = _endOffset - MediaQuery.of(context).size.width;
+              _currentIndex = _currentIndex - 1;
+              _shouldAllowScrolling = false;
+            });
+          }
         }
 
         return true;
@@ -95,6 +99,11 @@ class Card extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       height: 200,
       color: color,
+      child: Center(
+          child: RaisedButton(
+        onPressed: () => Navigator.pushNamed(context, "/animate"),
+        child: Text("Navigate"),
+      )),
     );
   }
 }
