@@ -23,7 +23,7 @@ class ThemeProvider with ChangeNotifier {
   static ThemeData _appThemeData = _themeData[_theme];
 
   Themes get theme => _theme;
-
+ 
   set theme(Themes theme) {
     if (theme != null) {
       _theme = theme;
