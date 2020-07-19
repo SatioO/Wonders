@@ -245,7 +245,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
               alignment: Alignment.bottomCenter,
               child: AnimatePaint(
                   controller: _controller.view,
-                  height: MediaQuery.of(context).size.height * 0.40),
+                  height: MediaQuery.of(context).size.height * 0.45),
             ),
           ],
         ),
@@ -268,11 +268,18 @@ class AnimatePaint extends StatelessWidget {
             curve: Interval(0.300, 1.000, curve: Curves.fastOutSlowIn),
           ),
         ),
+        opacity = Tween<double>(begin: 0.000, end: 1.000).animate(
+          CurvedAnimation(
+            parent: controller,
+            curve: Interval(0.700, 1.000, curve: Curves.fastOutSlowIn),
+          ),
+        ),
         super(key: key);
 
   final Animation<double> controller;
   final Animation<double> expand;
   final Animation<double> slide;
+  final Animation<double> opacity;
   final double height;
 
   Widget _buildAnimation(BuildContext context, Widget child) {
@@ -293,6 +300,121 @@ class AnimatePaint extends StatelessWidget {
             painter: ForegroundCloudPainter(),
             size: Size(MediaQuery.of(context).size.width, expand.value),
           ),
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 28.0),
+              child: Container(
+                height: height - 120,
+                width: MediaQuery.of(context).size.width,
+                child: Opacity(
+                  opacity: opacity.value,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Text("1",
+                              style: TextStyle(
+                                color: Colors.grey.shade400,
+                                fontFamily: 'Poppins',
+                                fontSize: 28,
+                              )),
+                          Text("2",
+                              style: TextStyle(
+                                color: Colors.grey.shade400,
+                                fontFamily: 'Poppins',
+                                fontSize: 28,
+                              )),
+                          Text("3",
+                              style: TextStyle(
+                                color: Colors.grey.shade400,
+                                fontFamily: 'Poppins',
+                                fontSize: 28,
+                              )),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Text("4",
+                              style: TextStyle(
+                                color: Colors.grey.shade400,
+                                fontFamily: 'Poppins',
+                                fontSize: 28,
+                              )),
+                          Text("5",
+                              style: TextStyle(
+                                color: Colors.grey.shade400,
+                                fontFamily: 'Poppins',
+                                fontSize: 28,
+                              )),
+                          Text("6",
+                              style: TextStyle(
+                                color: Colors.grey.shade400,
+                                fontFamily: 'Poppins',
+                                fontSize: 28,
+                              )),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Text("7",
+                              style: TextStyle(
+                                color: Colors.grey.shade400,
+                                fontFamily: 'Poppins',
+                                fontSize: 28,
+                              )),
+                          Text("8",
+                              style: TextStyle(
+                                color: Colors.grey.shade400,
+                                fontFamily: 'Poppins',
+                                fontSize: 28,
+                              )),
+                          Text("9",
+                              style: TextStyle(
+                                color: Colors.grey.shade400,
+                                fontFamily: 'Poppins',
+                                fontSize: 28,
+                              )),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            ".",
+                            style: TextStyle(
+                              color: Colors.grey.shade400,
+                              fontFamily: 'Poppins',
+                              fontSize: 28,
+                            ),
+                          ),
+                          Padding(
+                              padding: const EdgeInsets.only(left: 18.0),
+                              child: Text("0",
+                                  style: TextStyle(
+                                      color: Colors.grey.shade400,
+                                      fontFamily: 'Poppins',
+                                      fontSize: 28))),
+                          Icon(
+                            Icons.clear,
+                            color: Colors.grey.shade400,
+                            size: 28,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              )),
         )
       ],
     );
@@ -310,7 +432,7 @@ class AnimatePaint extends StatelessWidget {
 class ForegroundCloudPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    int height = 150;
+    int height = 180;
 
     Paint paint = new Paint()..color = Colors.white;
     Path cloud = new Path()
