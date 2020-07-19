@@ -10,6 +10,7 @@ final Map<Themes, ThemeData> _themeData = {
     brightness: Brightness.light,
     primaryColor: lightPrimaryColor,
     accentColor: lightAccentColor,
+    
   ),
   Themes.dark: ThemeData(
     brightness: Brightness.dark,

@@ -23,7 +23,11 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
         _isFinished = true;
       });
       _controller.forward();
-    } else {
+    }
+  }
+
+  void _onInputFocusOut() {
+    if (_isFinished) {
       setState(() {
         _isFinished = false;
       });
@@ -52,27 +56,116 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
         ),
         child: Stack(
           children: <Widget>[
-            Align(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  RaisedButton(
-                      onPressed: _onNavigate,
-                      color: Colors.white,
-                      child: Text("Navigate")),
-                  RaisedButton(
-                      onPressed: _onInputFocus,
-                      color: Colors.white,
-                      child: Text("Login"))
-                ],
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Expanded(
+                  flex: 5,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.18),
+                        Text(
+                          "Flutter",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Poppins',
+                            fontSize: 30,
+                          ),
+                        ),
+                        FractionallySizedBox(
+                          widthFactor: 0.6,
+                          child: Text(
+                            "Sign in to continue using our app",
+                            style: TextStyle(
+                              color: Colors.white60,
+                              fontFamily: 'Poppins',
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.12),
+                        Text("Please enter your phone number",
+                            style: TextStyle(
+                              color: Colors.white60,
+                              fontFamily: 'Poppins',
+                              fontSize: 16.5,
+                            )),
+                        TextField(
+                          cursorColor: Colors.white,
+                          decoration: InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Colors.white60, width: 1.0)),
+                          ),
+                          onTap: _onInputFocus,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontFamily: 'Poppins'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 24.0),
+                          child: SizedBox(
+                            width: 200.0,
+                            height: 58.0,
+                            child: FlatButton(
+                              onLongPress: _onNavigate,
+                              onPressed: _onInputFocusOut,
+                              color: Color.fromRGBO(129, 113, 247, 1),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text(
+                                      "Log in",
+                                      textAlign: TextAlign.start,
+                                      style: TextStyle(
+                                          color: Colors.white70,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: 'Poppins'),
+                                    ),
+                                    Icon(
+                                      Icons.arrow_forward,
+                                      color: Colors.white,
+                                    )
+                                  ],
+                                ),
+                              ),
+                              textColor: Colors.white60,
+                              shape: RoundedRectangleBorder(
+                                  side: BorderSide(
+                                      color: Colors.white54,
+                                      width: 1.0,
+                                      style: BorderStyle.solid),
+                                  borderRadius: BorderRadius.circular(10)),
+                              padding: const EdgeInsets.all(8.0),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: Align(
+                    child: AnimatePaint(
+                      controller: _controller.view,
+                    ),
+                    alignment: Alignment.bottomCenter,
+                  ),
+                )
+              ],
             ),
-            Align(
-              child: AnimatePaint(
-                  controller: _controller.view,
-                  height: MediaQuery.of(context).size.height * 0.4),
-              alignment: Alignment.bottomCenter,
-            )
           ],
         ),
       ),
@@ -81,7 +174,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
 }
 
 class AnimatePaint extends StatelessWidget {
-  AnimatePaint({Key key, @required this.controller, @required this.height})
+  AnimatePaint({Key key, @required this.controller})
       : slide = Tween<double>(
           begin: 0.0,
           end: -150.0,
@@ -93,7 +186,7 @@ class AnimatePaint extends StatelessWidget {
         ),
         expand = Tween<double>(
           begin: 150.0,
-          end: height,
+          end: 350,
         ).animate(
           CurvedAnimation(
             parent: controller,
@@ -105,7 +198,7 @@ class AnimatePaint extends StatelessWidget {
   final Animation<double> controller;
   final Animation<double> expand;
   final Animation<double> slide;
-  final double height;
+  // final double height;
 
   Widget _buildAnimation(BuildContext context, Widget child) {
     return Stack(
@@ -181,9 +274,9 @@ class BackgroundCloudPainter extends CustomPainter {
       ..quadraticBezierTo(
           size.width * 0.20, height * 0.55, size.width * 0.35, height * 0.70)
       ..quadraticBezierTo(
-          size.width * 0.42, height * 0.35, size.width * 0.58, height * 0.55)
+          size.width * 0.42, height * 0.40, size.width * 0.55, height * 0.55)
       ..quadraticBezierTo(
-          size.width * 0.72, height * 0.25, size.width * 0.85, height * 0.65)
+          size.width * 0.725, height * 0.20, size.width * 0.85, height * 0.70)
       ..quadraticBezierTo(
           size.width * 0.95, height * 0.6, size.width, height * 0.85)
       ..lineTo(size.width, size.height);
