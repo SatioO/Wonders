@@ -245,7 +245,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
               alignment: Alignment.bottomCenter,
               child: AnimatePaint(
                   controller: _controller.view,
-                  height: MediaQuery.of(context).size.height * 0.45),
+                  height: MediaQuery.of(context).size.height * 0.40),
             ),
           ],
         ),
@@ -304,116 +304,11 @@ class AnimatePaint extends StatelessWidget {
         Align(
           alignment: Alignment.bottomCenter,
           child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 28.0),
+              padding:
+                  const EdgeInsets.only(left: 28.0, right: 28.0, bottom: 20.0),
               child: Container(
-                height: height - 120,
+                height: height - 140,
                 width: MediaQuery.of(context).size.width,
-                child: Opacity(
-                  opacity: opacity.value,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text("1",
-                              style: TextStyle(
-                                color: Colors.grey.shade400,
-                                fontFamily: 'Poppins',
-                                fontSize: 28,
-                              )),
-                          Text("2",
-                              style: TextStyle(
-                                color: Colors.grey.shade400,
-                                fontFamily: 'Poppins',
-                                fontSize: 28,
-                              )),
-                          Text("3",
-                              style: TextStyle(
-                                color: Colors.grey.shade400,
-                                fontFamily: 'Poppins',
-                                fontSize: 28,
-                              )),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text("4",
-                              style: TextStyle(
-                                color: Colors.grey.shade400,
-                                fontFamily: 'Poppins',
-                                fontSize: 28,
-                              )),
-                          Text("5",
-                              style: TextStyle(
-                                color: Colors.grey.shade400,
-                                fontFamily: 'Poppins',
-                                fontSize: 28,
-                              )),
-                          Text("6",
-                              style: TextStyle(
-                                color: Colors.grey.shade400,
-                                fontFamily: 'Poppins',
-                                fontSize: 28,
-                              )),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text("7",
-                              style: TextStyle(
-                                color: Colors.grey.shade400,
-                                fontFamily: 'Poppins',
-                                fontSize: 28,
-                              )),
-                          Text("8",
-                              style: TextStyle(
-                                color: Colors.grey.shade400,
-                                fontFamily: 'Poppins',
-                                fontSize: 28,
-                              )),
-                          Text("9",
-                              style: TextStyle(
-                                color: Colors.grey.shade400,
-                                fontFamily: 'Poppins',
-                                fontSize: 28,
-                              )),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            ".",
-                            style: TextStyle(
-                              color: Colors.grey.shade400,
-                              fontFamily: 'Poppins',
-                              fontSize: 28,
-                            ),
-                          ),
-                          Padding(
-                              padding: const EdgeInsets.only(left: 18.0),
-                              child: Text("0",
-                                  style: TextStyle(
-                                      color: Colors.grey.shade400,
-                                      fontFamily: 'Poppins',
-                                      fontSize: 28))),
-                          Icon(
-                            Icons.clear,
-                            color: Colors.grey.shade400,
-                            size: 28,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
               )),
         )
       ],
