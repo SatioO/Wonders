@@ -13,7 +13,6 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
   void initState() {
     _controller =
         AnimationController(vsync: this, duration: Duration(seconds: 1));
-
     super.initState();
   }
 
@@ -175,22 +174,28 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
 
 class AnimatePaint extends StatelessWidget {
   AnimatePaint({Key key, @required this.controller})
-      : slide = Tween<double>(
-          begin: 0.0,
-          end: -150.0,
-        ).animate(
+      : slide = Tween<double>(begin: 0.0, end: -150.0).animate(
           CurvedAnimation(
             parent: controller,
             curve: Interval(0.000, 1.000, curve: Curves.easeInOut),
           ),
         ),
-        expand = Tween<double>(
-          begin: 150.0,
-          end: 350,
-        ).animate(
+        expand = Tween<double>(begin: 150.0, end: 350).animate(
           CurvedAnimation(
             parent: controller,
             curve: Interval(0.300, 1.000, curve: Curves.fastOutSlowIn),
+          ),
+        ),
+        opacity = Tween<double>(begin: 1.0, end: 0.0).animate(
+          CurvedAnimation(
+            parent: controller,
+            curve: Interval(0.000, 1.000, curve: Curves.easeOut),
+          ),
+        ),
+        numOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
+          CurvedAnimation(
+            parent: controller,
+            curve: Interval(0.800, 1.000, curve: Curves.easeOut),
           ),
         ),
         super(key: key);
@@ -198,11 +203,43 @@ class AnimatePaint extends StatelessWidget {
   final Animation<double> controller;
   final Animation<double> expand;
   final Animation<double> slide;
+  final Animation<double> opacity;
+  final Animation<double> numOpacity;
   // final double height;
 
   Widget _buildAnimation(BuildContext context, Widget child) {
     return Stack(
       children: <Widget>[
+        Positioned(
+          top: 0,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Opacity(
+              opacity: opacity.value,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "Don't have an account?",
+                    style: TextStyle(
+                      color: Colors.white60,
+                      fontFamily: 'Poppins',
+                      fontSize: 16.5,
+                    ),
+                  ),
+                  Text(
+                    "Sign In",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Poppins',
+                      fontSize: 16.5,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
         Positioned(
           bottom: 0,
           child: Transform.translate(
@@ -218,7 +255,120 @@ class AnimatePaint extends StatelessWidget {
             painter: ForegroundCloudPainter(),
             size: Size(MediaQuery.of(context).size.width, expand.value),
           ),
-        )
+        ),
+        Positioned(
+          top: 100,
+          width: MediaQuery.of(context).size.width,
+          height: 200,
+          child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 32.0),
+              child: Opacity(
+                opacity: numOpacity.value,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text("1",
+                            style: TextStyle(
+                              color: Colors.grey.shade400,
+                              fontFamily: 'Poppins',
+                              fontSize: 28,
+                            )),
+                        Text("2",
+                            style: TextStyle(
+                              color: Colors.grey.shade400,
+                              fontFamily: 'Poppins',
+                              fontSize: 28,
+                            )),
+                        Text("3",
+                            style: TextStyle(
+                              color: Colors.grey.shade400,
+                              fontFamily: 'Poppins',
+                              fontSize: 28,
+                            )),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text("4",
+                            style: TextStyle(
+                              color: Colors.grey.shade400,
+                              fontFamily: 'Poppins',
+                              fontSize: 28,
+                            )),
+                        Text("5",
+                            style: TextStyle(
+                              color: Colors.grey.shade400,
+                              fontFamily: 'Poppins',
+                              fontSize: 28,
+                            )),
+                        Text("6",
+                            style: TextStyle(
+                              color: Colors.grey.shade400,
+                              fontFamily: 'Poppins',
+                              fontSize: 28,
+                            )),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text("7",
+                            style: TextStyle(
+                              color: Colors.grey.shade400,
+                              fontFamily: 'Poppins',
+                              fontSize: 28,
+                            )),
+                        Text("8",
+                            style: TextStyle(
+                              color: Colors.grey.shade400,
+                              fontFamily: 'Poppins',
+                              fontSize: 28,
+                            )),
+                        Text("9",
+                            style: TextStyle(
+                              color: Colors.grey.shade400,
+                              fontFamily: 'Poppins',
+                              fontSize: 28,
+                            )),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          ".",
+                          style: TextStyle(
+                            color: Colors.grey.shade400,
+                            fontFamily: 'Poppins',
+                            fontSize: 28,
+                          ),
+                        ),
+                        Padding(
+                            padding: const EdgeInsets.only(left: 18.0),
+                            child: Text("0",
+                                style: TextStyle(
+                                    color: Colors.grey.shade400,
+                                    fontFamily: 'Poppins',
+                                    fontSize: 28))),
+                        Icon(
+                          Icons.clear,
+                          color: Colors.grey.shade400,
+                          size: 28,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              )),
+        ),
       ],
     );
   }
