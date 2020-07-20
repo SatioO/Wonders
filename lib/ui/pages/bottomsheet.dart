@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 
 class CustomBottomSheet extends StatefulWidget {
   @override
@@ -32,10 +33,10 @@ class _SheetState extends State<Sheet> with SingleTickerProviderStateMixin {
     super.initState();
 
     _controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 1));
+        AnimationController(vsync: this, duration: Duration(milliseconds: 750));
 
     _animation =
-        CurvedAnimation(curve: Curves.linearToEaseOut, parent: _controller);
+        CurvedAnimation(curve: Curves.fastOutSlowIn, parent: _controller);
   }
 
   @override
@@ -44,12 +45,21 @@ class _SheetState extends State<Sheet> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
-
   void _handleDragUpdate(DragUpdateDetails details) {
-    _controller.value -= details.primaryDelta / maxHeight * 0.80;
+    _controller.value -= details.primaryDelta / maxHeight * 0.85;
   }
 
-  void _handleDragEnd(DragEndDetails details) {}
+  void _handleDragEnd(DragEndDetails details) {
+    if (_controller.isAnimating ||
+        _controller.status == AnimationStatus.completed) return;
+
+    final double velocityY = details.velocity.pixelsPerSecond.dy;
+    if (velocityY > 0.0) {
+      _controller.reverse();
+    } else {
+      _controller.forward();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +67,7 @@ class _SheetState extends State<Sheet> with SingleTickerProviderStateMixin {
       animation: _controller,
       builder: (context, child) {
         return Positioned(
-          height: Tween<double>(begin: minHeight, end: maxHeight * 0.80)
+          height: Tween<double>(begin: minHeight, end: maxHeight * 0.85)
               .evaluate(_animation),
           left: 0,
           right: 0,
