@@ -24,6 +24,12 @@ class _CustomSliderState extends State<CustomSlider>
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: AnimatedBuilder(
@@ -49,7 +55,8 @@ class WaveClipper extends CustomClipper<Path> {
 
   @override
   getClip(Size size) {
-    double cx = size.width * 0.5 + (size.width * 0.6) * math.sin(math.pi * clip);
+    double cx =
+        size.width * 0.5 + (size.width * 0.6) * math.sin(math.pi * clip);
     double cy = (size.height * 0.8) + 60 * math.cos(math.pi * clip);
 
     Path path = new Path()

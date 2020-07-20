@@ -7,5 +7,6 @@ final Map<String, Widget Function(BuildContext)> routes = {
   '/neumorph': (ctx) => Neumorph(),
   '/posts': (ctx) => PostsScreen(),
   '/animate': (ctx) => Animations(),
-  '/': (ctx) => CustomSlider(),
+  '/slider': (ctx) => CustomSlider(),
+  '/': (ctx) => CustomBottomSheet()
 };
