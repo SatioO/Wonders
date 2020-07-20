@@ -3,8 +3,9 @@ import 'ui/pages/index.dart';
 
 final Map<String, Widget Function(BuildContext)> routes = {
   '/cards': (ctx) => Cards(),
-  '/': (ctx) => Login(),
+  '/login': (ctx) => Login(),
   '/neumorph': (ctx) => Neumorph(),
   '/posts': (ctx) => PostsScreen(),
   '/animate': (ctx) => Animations(),
+  '/': (ctx) => CustomSlider(),
 };
