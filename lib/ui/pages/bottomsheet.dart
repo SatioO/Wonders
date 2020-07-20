@@ -44,9 +44,12 @@ class _SheetState extends State<Sheet> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
-  void _toggle() {
-    _controller.forward();
+
+  void _handleDragUpdate(DragUpdateDetails details) {
+    _controller.value -= details.primaryDelta / maxHeight * 0.80;
   }
+
+  void _handleDragEnd(DragEndDetails details) {}
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +63,9 @@ class _SheetState extends State<Sheet> with SingleTickerProviderStateMixin {
           right: 0,
           bottom: 0,
           child: GestureDetector(
-            onTap: _toggle,
+            onVerticalDragUpdate:
+                _handleDragUpdate, //<-- Add verticalDragUpdate callback
+            onVerticalDragEnd: _handleDragEnd,
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 32),
               decoration: const BoxDecoration(
